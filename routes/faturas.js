@@ -1,24 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res){
-	res.send('retorna todas as faturas.')
-});
+var FaturaController = require('../controllers/faturaController')
 
-router.get('/:id', function(req, res){
-	res.send('retorna uma fatura.')
-});
+router.get('/', FaturaController.getAll);
 
-router.post('/', function(req, res){
-	res.send('Cria uma fatura.')
-});
+router.get('/:_id', FaturaController.getById);
 
-router.put('/:id', function(req, res){
-	res.send('atualiza a fatura.')
-});
+router.post('/', FaturaController.create);
 
-router.delete('/:id', function(req, res){
-	res.send('remove, ou atualiza a fatura.')
-});
+router.put('/:_id', FaturaController.update);
+
+router.delete('/:_id', FaturaController.remove);
 
 module.exports = router;
