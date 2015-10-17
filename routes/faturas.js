@@ -1,7 +1,7 @@
 var express = require('express'),
 	router  = express.Router(),
-	mongo   = require('../db/mongo'),
-	FaturaMode = require('../models/faturaModel')(mongo),
+	mongoose   = require('../db/mongoose'),
+	FaturaMode = require('../models/faturaModel')(mongoose),
 	FaturaController = require('../controllers/faturaController')(FaturaMode);
 
 router.get('/', FaturaController.getAll.bind(FaturaController));

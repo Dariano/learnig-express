@@ -1,30 +1,43 @@
-function FaturaModel(mongo) {
-	this.mongo = mongo;
+'use strict';
+
+function FaturaDAO(model) {
+	this.model = model;
  };
 
-FaturaModel.prototype.find = function(query, callback) {
-	this.mongo.collection('faturas').find(query, callback);
+FaturaDAO.prototype.find = function(query, callback) {
+	this.model.find(query).exec(callback);
 };
 
-FaturaModel.prototype.findOne = function(_id, callback) {
-	var query = { _id: this.mongo.ObjectId(_id)};
-	this.mongo.collection('faturas').findOne(query, callback);
+FaturaDAO.prototype.findOne = function(_id, callback) {
+	var query = { _id: _id };
+	this.model.find(query).exec(callback);
 };
 
-FaturaModel.prototype.create = function(data, callback) {
-	this.mongo.collection('faturas').insert(data, callback);
+FaturaDAO.prototype.create = function(data, callback) {
+	var model = new this.model(data);
+	model.save(function(err, result){
+		callback(err, result);
+	});
 };
 
-FaturaModel.prototype.update = function(_id, data, callback) {
-	var query = { _id: this.mongo.ObjectId(_id)};
-	this.mongo.collection('faturas').update(query, data, callback);
+FaturaDAO.prototype.update = function(_id, data, callback) {
+	var query = { _id: _id };
+	this.model.update(query, data).exec(function(err, result){
+		callback(err, callback);
+	});
 };
 
-FaturaModel.prototype.remove = function(_id, callback) {
-	var query = { _id: this.mongo.ObjectId(_id)};
-	this.mongo.collection('faturas').remove(query, callback);
+FaturaDAO.prototype.remove = function(_id, callback) {
+	var query = { _id: _id };
+	this.model.remove(query).exec(function(err, result){
+		callback(err, result);
+	});
 };
 
-module.exports = function (mongo){
-	return new FaturaModel(mongo);
+module.exports = function (mongoose){
+	var Fatura = mongoose.model('Fatura', {
+		total: Number
+	});
+	
+	return new FaturaDAO(Fatura);
 };
