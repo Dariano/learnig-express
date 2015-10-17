@@ -1,7 +1,8 @@
 var express = require('express');
-var app = express();
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
+var cors = require('cors');
+var app = express();
 
 app.use(methodOverride('X-HTTP-Method'));
 app.use(methodOverride('X-HTTP-Method-Override'));
@@ -11,6 +12,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+app.use(cors());
+
 app.use(function(request, response, next){
 	if(request.url == '/favicon.ico'){
 		response.writeHead(200, { 'Content-Type' : 'image/x-icon'});
@@ -19,13 +22,6 @@ app.use(function(request, response, next){
 	else{
 		next();
 	}
-});
-
-app.use(function(request, response, next){
-	response.header('Access-Control-Allow-Origin', '*');
-	response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-	
-	next();
 });
 
 app.get('/', function(req, res){
