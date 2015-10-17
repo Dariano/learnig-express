@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Dariano/learnig-express",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "method-override": "^2.3.5",
     "nodemon": "^1.7.1"
