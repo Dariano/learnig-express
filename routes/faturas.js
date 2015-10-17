@@ -1,16 +1,17 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express'),
+	router  = express.Router(),
+	mongo   = require('../db/mongo'),
+	FaturaMode = require('../models/faturaModel')(mongo),
+	FaturaController = require('../controllers/faturaController')(FaturaMode);
 
-var FaturaController = require('../controllers/faturaController')
+router.get('/', FaturaController.getAll.bind(FaturaController));
 
-router.get('/', FaturaController.getAll);
+router.get('/:_id', FaturaController.getById.bind(FaturaController));
 
-router.get('/:_id', FaturaController.getById);
+router.post('/', FaturaController.create.bind(FaturaController));
 
-router.post('/', FaturaController.create);
+router.put('/:_id', FaturaController.update.bind(FaturaController));
 
-router.put('/:_id', FaturaController.update);
-
-router.delete('/:_id', FaturaController.remove);
+router.delete('/:_id', FaturaController.remove.bind(FaturaController));
 
 module.exports = router;
