@@ -15,7 +15,7 @@ function ClienteController(ClienteModel) {
 	
 	this.getById = function(request, response, next){
 		var _id = request.params._id;
-		console.log('_id', _id)
+		
 		this.model.findOneAsync(_id)
 			.then(handleNotFound)
 			.then(function(data){

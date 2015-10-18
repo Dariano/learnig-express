@@ -11,7 +11,7 @@ var config	= require('config');
 var passport = require('passport');
 
 var middlewareAuth = function(req, res, next){
-	var token = req.query.token;
+	var token = req.query.token || req.headers['x-access-token'];
 	
 	if(!token){
 		var err = new Error('Forbidden');
