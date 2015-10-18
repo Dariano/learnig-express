@@ -14,6 +14,7 @@ ClienteDAO.prototype.findOne = function(_id, callback) {
 };
 
 ClienteDAO.prototype.create = function(data, callback) {
+	console.log(data);
 	var model = new this.model(data);
 	model.save(function(err, result){
 		callback(err, result);
@@ -28,6 +29,7 @@ ClienteDAO.prototype.update = function(_id, data, callback) {
 };
 
 ClienteDAO.prototype.remove = function(_id, callback) {
+	console.log('id', _id);
 	var query = { _id: _id };
 	this.model.remove(query).exec(function(err, result){
 		callback(err, result);
@@ -36,7 +38,8 @@ ClienteDAO.prototype.remove = function(_id, callback) {
 
 module.exports = function (mongoose){
 	var Cliente = mongoose.model('Cliente', {
-		total: Number
+		nome: String,
+		idade: Number
 	});
 	
 	return new ClienteDAO(Cliente);

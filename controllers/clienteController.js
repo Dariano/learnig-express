@@ -10,18 +10,18 @@ function ClienteController(ClienteModel) {
 			.then(function(data){
 				response.json(data);
 			})
-		.cath(next)
+		.catch(next)
 	};
 	
 	this.getById = function(request, response, next){
 		var _id = request.params._id;
-		
+		console.log('_id', _id)
 		this.model.findOneAsync(_id)
 			.then(handleNotFound)
 			.then(function(data){
 					response.json(data);
 				})
-			.cath(next);
+			.catch(next);
 	};
 	
 	var handleNotFound = function(data){
