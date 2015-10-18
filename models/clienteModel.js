@@ -1,33 +1,33 @@
 'use strict';
 
-function FaturaDAO(model) {
+function ClienteDAO(model) {
 	this.model = model;
  };
 
-FaturaDAO.prototype.find = function(query, callback) {
+ClienteDAO.prototype.find = function(query, callback) {
 	this.model.find(query).exec(callback);
 };
 
-FaturaDAO.prototype.findOne = function(_id, callback) {
+ClienteDAO.prototype.findOne = function(_id, callback) {
 	var query = { _id: _id };
 	this.model.find(query).exec(callback);
 };
 
-FaturaDAO.prototype.create = function(data, callback) {
+ClienteDAO.prototype.create = function(data, callback) {
 	var model = new this.model(data);
 	model.save(function(err, result){
 		callback(err, result);
 	});
 };
 
-FaturaDAO.prototype.update = function(_id, data, callback) {
+ClienteDAO.prototype.update = function(_id, data, callback) {
 	var query = { _id: _id };
 	this.model.update(query, data).exec(function(err, result){
 		callback(err, callback);
 	});
 };
 
-FaturaDAO.prototype.remove = function(_id, callback) {
+ClienteDAO.prototype.remove = function(_id, callback) {
 	var query = { _id: _id };
 	this.model.remove(query).exec(function(err, result){
 		callback(err, result);
@@ -35,9 +35,9 @@ FaturaDAO.prototype.remove = function(_id, callback) {
 };
 
 module.exports = function (mongoose){
-	var Fatura = mongoose.model('Fatura', {
+	var Cliente = mongoose.model('Cliente', {
 		total: Number
 	});
 	
-	return new FaturaDAO(Fatura);
+	return new ClienteDAO(Cliente);
 };

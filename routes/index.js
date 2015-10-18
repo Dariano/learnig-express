@@ -6,7 +6,7 @@ router.get('/', function(req, res){
 	res.json({ 'nome': 'Dariano Soares', 'email': 'darianosoares@hotmail.com'});
 });
 
-// faturas
-router.use('/faturas', require('./faturas'));
+// clientes
+router.use('/clientes', require('./clientes'));
 
 module.exports = router;

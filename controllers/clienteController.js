@@ -1,27 +1,37 @@
-function FaturaController(FaturaModel) {
+var debug = require('debug')('learnig-express:controller'),
+	Promise = require('bluebird');
+
+function ClienteController(ClienteModel) {
 	
-	this.model = FaturaModel;
+	this.model = Promise.promisifyAll(ClienteModel);
 	
 	this.getAll = function(request, response, next){
-		this.model.find({}, function(err, data){
-			if(err) {
-				return next(err);
-			}
-			
-			response.json(data);
-		});
+		this.model.findAsync({})
+			.then(function(data){
+				response.json(data);
+			})
+		.cath(next)
 	};
 	
-	this.getById= function(request, response, next){
+	this.getById = function(request, response, next){
 		var _id = request.params._id;
 		
-		this.model.findOne(_id, function(err, data){
-			if(err) {
-				return next(err);
-			}
-			
-			response.json(data);
-		});
+		this.model.findOneAsync(_id)
+			.then(handleNotFound)
+			.then(function(data){
+					response.json(data);
+				})
+			.cath(next);
+	};
+	
+	var handleNotFound = function(data){
+		if(!data){
+			var err = new Error('Not Found');
+			err.status = 404;
+			throw err;
+		}
+		
+		return data;
 	};
 	
 	this.create = function(request, response, next){
@@ -62,6 +72,6 @@ function FaturaController(FaturaModel) {
 	};
 };
 
-module.exports = function(FaturaModel){
-	return new FaturaController(FaturaModel);
+module.exports = function(ClienteModel){
+	return new ClienteController(ClienteModel);
 };
