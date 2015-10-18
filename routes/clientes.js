@@ -4,7 +4,9 @@ var express = require('express'),
 	ClienteMode = require('../models/clienteModel')(mongoose),
 	ClienteController = require('../controllers/clienteController')(ClienteMode);
 
-router.get('/', ClienteController.getAll.bind(ClienteController));
+var passport = require('passport');
+
+router.get('/', passport.authenticate('basic', { session: false}), ClienteController.getAll.bind(ClienteController));
 
 router.get('/:_id', ClienteController.getById.bind(ClienteController));
 

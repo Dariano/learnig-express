@@ -2,6 +2,8 @@ var express        	= require('express');
 var methodOverride 	= require('method-override');
 var bodyParser     	= require('body-parser');
 var cors 		   	= require('cors');
+var passport		= require('passport');
+var BasicStrategy	= require('passport-http').BasicStrategy;
 var app 			= express();
 
 // server config
@@ -25,6 +27,15 @@ app.use(function(request, response, next){
 	}
 });
 
+app.use(passport.initialize());
+passport.use(
+	new BasicStrategy(function(username, password, done){
+		var autenticado = username.valueOf() == 'dariano' && password.valueOf() == '123';
+		
+		return done(null, autenticado);
+	})
+);
+
 // router
 app.use('/', require('./routes'));
 
@@ -37,6 +48,7 @@ app.use(function(request, response, next){
 });
 
 app.use(function(err, request, response, next){
+	console.log(err);
 	response.status(err.status || 500).join({ erro: err.message });	
 });
 
