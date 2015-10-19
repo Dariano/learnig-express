@@ -14,7 +14,6 @@ ClienteDAO.prototype.findOne = function(_id, callback) {
 };
 
 ClienteDAO.prototype.create = function(data, callback) {
-	console.log(data);
 	var model = new this.model(data);
 	model.save(function(err, result){
 		callback(err, result);

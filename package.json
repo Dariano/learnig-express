@@ -7,7 +7,7 @@
     "start": "node ./bin/www",
     "nodemon": "nodemon ./bin/www",
     "pretest": "jshint *",
-    "test": "node_modules/mocha/bin/mocha --ui tdd tests/exemplos/*"
+    "test": "export DEBUG=learnig-express:* && node_modules/mocha/bin/mocha tests/unit/*"
   },
   "repository": {
     "type": "git",
