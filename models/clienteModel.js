@@ -2,7 +2,7 @@
 
 function ClienteDAO(model) {
 	this.model = model;
- };
+ }
 
 ClienteDAO.prototype.find = function(query, callback) {
 	this.model.find(query).exec(callback);

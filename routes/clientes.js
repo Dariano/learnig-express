@@ -25,9 +25,9 @@ var middlewareAuth = function(req, res, next){
 		var isExired = moment(decoded.exp).isBefore(new Date());
 		
 		if(isExired){
-			var err = new Error('Unauthorized');
-			err.status = 401;
-			return next(err);
+			var error = new Error('Unauthorized');
+			error.status = 401;
+			return next(error);
 		} else{
 			req.user = decoded.user;
 			next();
@@ -35,7 +35,7 @@ var middlewareAuth = function(req, res, next){
 	}catch(err){
 		return next(err);
 	}
-}
+};
 
 router.get('/', middlewareAuth,  ClienteController.getAll.bind(ClienteController));
 

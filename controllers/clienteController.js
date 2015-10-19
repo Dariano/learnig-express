@@ -1,16 +1,15 @@
 var debug = require('debug')('learnig-express:controller'),
-	Promise = require('bluebird');
+	promise = require('bluebird');
 
 function ClienteController(ClienteModel) {
-	
-	this.model = Promise.promisifyAll(ClienteModel);
+	this.model = promise.promisifyAll(ClienteModel); 
 	
 	this.getAll = function(request, response, next){
 		this.model.findAsync({})
 			.then(function(data){
 				response.json(data);
 			})
-		.catch(next)
+		.catch(next);
 	};
 	
 	this.getById = function(request, response, next){
@@ -70,7 +69,7 @@ function ClienteController(ClienteModel) {
 			response.json(data);
 		});
 	};
-};
+}
 
 module.exports = function(ClienteModel){
 	return new ClienteController(ClienteModel);
